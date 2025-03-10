@@ -12,7 +12,7 @@ plugins {
 }
 apply plugin: NextflowPlugin
 
-group 'com.edn'
+group 'com.incsteps'
 
 repositories {
     mavenCentral()
@@ -65,7 +65,7 @@ jar {
                 'Plugin-Id': project.name,
                 'Plugin-Version': archiveVersion,
                 'Plugin-Class': nextflowPlugin.pluginClassName,
-                'Plugin-Provider': 'EDN',
+                'Plugin-Provider': 'Incremental Steps Software Solutions',
                 'Plugin-Requires': '>=24.10.0',
         )
     }
@@ -116,7 +116,7 @@ publishing {
             pom {
                 name = "$project.name"
                 description = 'Nextflow Plugin'
-                url = 'https://github.com/edn-es/nf-pgcache'
+                url = 'https://github.com/incsteps/nf-duckdbcache'
                 inceptionYear = '2023'
                 licenses {
                     license {
@@ -131,9 +131,9 @@ publishing {
                     }
                 }
                 scm {
-                    connection = 'scm:git:https://github.com/edn-es/nf-pgcache.git'
-                    developerConnection = 'scm:git:ssh://github.com/edn-com/nf-duckdb.git'
-                    url = 'http://github.com/edn-es/nf-pgcache'
+                    connection = 'scm:git:https://github.com/incsteps/nf-duckdbcache.git'
+                    developerConnection = 'scm:git:ssh://github.com/incsteps/nf-duckdbcache.git'
+                    url = 'http://github.com/incsteps/nf-duckdbcache'
                 }
             }
         }

@@ -1,5 +1,5 @@
 = nf-duckdbcache: DuckDB cache for Nextflow
-Jorge Aguilera <jorge@edn.com>
+Jorge Aguilera <jorge@incsteps.com>
 :toc: left
 :imagesdir: images
 
@@ -117,5 +117,5 @@ Contributions are welcome! Please submit issues or pull requests to the project'
 
 == Contact
 
-For support, contact the EDN team or refer to the plugin documentation at
-https://edn-es.github.io/ng-duckdbcache/index.html
+For support, contact the Incremental Steps Software Solutions team or refer to the plugin documentation at
+https://incsteps.github.io/nf-duckdbcache/index.html

@@ -1,4 +1,4 @@
-group 'com.edn' // change it in case you want to publish in maven
+group 'com.incsteps' // change it in case you want to publish in maven
 
 
 nextflowPlugin{
