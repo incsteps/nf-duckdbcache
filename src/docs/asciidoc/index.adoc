@@ -1,0 +1,121 @@
+= nf-duckdbcache: DuckDB cache for Nextflow
+Jorge Aguilera <jorge@edn.com>
+:toc: left
+:imagesdir: images
+
+This document provides an overview of the DuckDB Cache Plugin for Nextflow, designed to use DubkcDB as a backend for storing execution cache data.
+
+== Introduction
+
+Nextflow's DuckDB Cache Plugin enables the storage of task execution metadata in a DuckDB database, ensuring data persistence and scalability. This plugin is particularly useful for workflows that require robust, centralized caching mechanisms across distributed environments.
+
+== Changelog
+
+- 2025-03-01 Initial version 0.0.1
+
+== Features
+
+- **Centralized Cache Storage**
+- **Scalability**
+- **Fault Tolerance**
+- **Compatibility**
+
+== Prerequisites
+
+Before using the Cache Plugin, ensure the following requirements are met:
+
+
+== Installation
+
+
+.nextflow.config
+[source,groovy]
+----
+plugins {
+    id "nf-duckdbcache@0.0.1"
+}
+----
+
+== Configuration
+
+.nextflow.config
+[source,groovy]
+----
+duckdbcache{
+}
+----
+
+
+== Usage
+
+Once the plugin is installed and configured, it will automatically handle caching for your Nextflow workflows.
+
+== Example
+
+Here is an example of a simple workflow leveraging the PostgreSQL Cache Plugin:
+
+[source,nextflow]
+----
+process sayHello {
+  input:
+  val x
+  output:
+  stdout
+  script:
+  """
+    echo $x
+  """
+}
+
+workflow {
+  Channel.of('Bonjour', 'Ciao', 'Hello', 'Hola') | sayHello | view
+}
+----
+
+Run the workflow with:
+
+```
+nextflow run myWorkflow.nf -resume
+```
+
+== Console log
+
+You can check the cache status using the `log` command:
+
+`nextflow plugin nf-duckdbcache:log`
+
+```
+TIMESTAMP               DURATION        RUN NAME                STATUS  REVISION ID     SESSION ID                              COMMAND
+2025-01-28 10:06:38     11.9s           elated_noyce            ERR     5a90025ed9      5276a9cb-1999-4b95-bf8d-563a22373710    nextflow run main.nf -resume -c local.config
+2025-01-28 10:07:02     11.6s           distracted_mcnulty      ERR     5a90025ed9      5276a9cb-1999-4b95-bf8d-563a22373710    nextflow run main.nf -resume -c local.config
+2025-01-28 10:20:30     11.5s           crazy_wright            ERR     5a90025ed9      5276a9cb-1999-4b95-bf8d-563a22373710    nextflow run main.nf -resume -c local.config
+
+```
+
+If you use a recent nextflow version you can provide parameters to the `log` command
+
+`nextflow plugin nf-duckdbcache:log --s '<->' `
+
+`nextflow plugin nf-duckdbcache:log --fields timestamp,runame `
+
+The idea is to use the same standard parameters as `nextflow log` command
+
+
+== Troubleshooting
+
+If you encounter issues, ensure the following:
+
+
+
+== License
+
+This plugin is licensed under the MIT License.
+
+== Contributing
+
+Contributions are welcome! Please submit issues or pull requests to the project's GitHub repository.
+
+== Contact
+
+For support, contact the EDN team or refer to the plugin documentation at
+https://edn-es.github.io/ng-duckdbcache/index.html

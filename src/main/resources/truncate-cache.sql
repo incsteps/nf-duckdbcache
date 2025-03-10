@@ -1,0 +1,2 @@
+
+truncate TABLE CACHE_ENTRIES
