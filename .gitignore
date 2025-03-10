@@ -9,3 +9,5 @@ build
 /validation/work/
 /validation/.nextflow.log
 /validation/.nextflow.log.*
+/validation/*.db
+/validation/*.db.wal
