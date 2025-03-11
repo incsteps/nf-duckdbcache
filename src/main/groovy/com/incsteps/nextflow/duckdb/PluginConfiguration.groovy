@@ -32,7 +32,7 @@ class PluginConfiguration {
 
     final private String file
     final private PostgresConfiguration postgresConfiguration
-
+    final private SQLiteConfiguration sqliteConfiguration
     PluginConfiguration(Map map){
         def config = map ?: Collections.emptyMap()
         this.file = config.file?.toString()
@@ -48,14 +48,35 @@ class PluginConfiguration {
         }else{
             postgresConfiguration = null
         }
+        if( config.sqlite && config.sqlite instanceof Map){
+            def mappg = config.sqlite as Map
+            sqliteConfiguration = new SQLiteConfiguration(
+                    (mappg.enabled?.toString() ?: "false").toBoolean(),
+                    mappg.file?.toString()
+            )
+        }else{
+            sqliteConfiguration = null
+        }
     }
 
     String getFile() {
         return file
     }
 
+    boolean isPostgreEnabled(){
+        postgresConfiguration && postgresConfiguration.enabled
+    }
+
     PostgresConfiguration getPostgresConfiguration() {
         return postgresConfiguration
+    }
+
+    boolean isSqliteEnabled(){
+        sqliteConfiguration && sqliteConfiguration.enabled
+    }
+
+    SQLiteConfiguration getSqLiteConfiguration() {
+        return sqliteConfiguration
     }
 
     class PostgresConfiguration{
@@ -93,4 +114,23 @@ class PluginConfiguration {
             return database
         }
     }
+
+    class SQLiteConfiguration{
+        final private boolean enabled
+        final private String file
+
+        SQLiteConfiguration(boolean enabled, String file) {
+            this.enabled = enabled
+            this.file = file
+        }
+
+        boolean getEnabled() {
+            return enabled
+        }
+
+        String getFile() {
+            return file
+        }
+    }
+
 }

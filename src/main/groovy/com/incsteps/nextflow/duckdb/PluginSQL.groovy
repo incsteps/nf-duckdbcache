@@ -31,9 +31,6 @@ import groovy.util.logging.Slf4j
 import nextflow.exception.AbortOperationException
 import org.duckdb.DuckDBResultSet
 
-import java.sql.Connection
-import java.sql.DriverManager
-
 @CompileStatic
 @Slf4j
 class PluginSQL {
@@ -55,13 +52,23 @@ class PluginSQL {
         return "jdbc:duckdb:$suffix"
     }
 
-    protected boolean usePostgre(){
-        configuration.postgresConfiguration && configuration.postgresConfiguration.enabled
-    }
-
     protected void attachPostgre(PluginConfiguration.PostgresConfiguration config){
         sql.execute "ATTACH 'dbname=$config.database user=$config.user password=$config.password host=$config.host' AS db (TYPE postgres);".toString()
         sql.execute "use db;"
+    }
+
+    protected void attachSqlite(PluginConfiguration.SQLiteConfiguration config){
+        sql.execute "ATTACH '$config.file' AS db (TYPE sqlite);".toString()
+        sql.execute "use db;"
+    }
+
+    protected void applyExtension(){
+        if( configuration.postgreEnabled ){
+            attachPostgre(configuration.postgresConfiguration)
+        }
+        if( configuration.sqliteEnabled ){
+            attachSqlite(configuration.sqLiteConfiguration)
+        }
     }
 
     protected String getSentenceFromResource(String path){
@@ -71,9 +78,7 @@ class PluginSQL {
     void validateConnection(){
         try{
             sql = Sql.newInstance(buildURL(),'org.duckdb.DuckDBDriver')
-            if( usePostgre() ){
-                attachPostgre(configuration.postgresConfiguration)
-            }
+            applyExtension()
         }catch(Exception e){
             log.error "Error validating cache connection",e
             throw new AbortOperationException("Invalid connection for nf-pqcache")

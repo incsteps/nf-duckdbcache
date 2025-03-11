@@ -45,6 +45,63 @@ duckdbcache{
 }
 ----
 
+=== File
+
+Specify a file where store your cache:
+
+.nextflow.config
+[source,groovy]
+----
+duckdbcache{
+    file = "nfduckdb.cache"
+}
+----
+
+**TIP** If you have installed `duckdb` command line you can inspect the file using SQL commands
+as `select * from CACHE_ENTRIES` or `select * from INDEX_ENTRIES`
+
+
+=== PostgreSQL
+
+Specify a postgresql connection details:
+
+.nextflow.config
+[source,groovy]
+----
+duckdbcache{
+    postgre{
+        enabled = true
+        host = "127.0.0.1"
+        user = "user1"
+        password = "password1"
+        database = "postgres"
+    }
+}
+----
+
+using `enabled` config you can enable/disable the postgresql configuration easily.
+
+**TIP** Using any database tool you can query the cache using SQL commands as in previous section
+
+
+=== SQLite
+
+Specify an SQLite connection details:
+
+.nextflow.config
+[source,groovy]
+----
+duckdbcache{
+    sqlite{
+        enabled = true
+        file = "sqlite-cache.db"
+    }
+}
+----
+
+using `enabled` config you can enable/disable the sqlite configuration easily.
+
+**TIP** Using `sqlite3` tool you can query the cache using SQL commands as in previous section
 
 == Usage
 
@@ -72,11 +129,29 @@ workflow {
 }
 ----
 
+
+.nextflow.config
+[source,groovy]
+----
+duckdbcache{
+    postgre{
+        enabled = true
+        host = "127.0.0.1"
+        user = "user1"
+        password = "password1"
+        database = "postgres"
+    }
+}
+----
+
 Run the workflow with:
 
 ```
 nextflow run myWorkflow.nf -resume
 ```
+
+If you run multiple times the pipeline you'll see how Nextflow is using cached tasks and pipeline run faster
+
 
 == Console log
 
