@@ -81,7 +81,7 @@ class PluginSQL {
             applyExtension()
         }catch(Exception e){
             log.error "Error validating cache connection",e
-            throw new AbortOperationException("Invalid connection for nf-pqcache")
+            throw new AbortOperationException("Invalid connection for nf-duckdbcache: $e.message")
         }
     }
 
@@ -91,7 +91,7 @@ class PluginSQL {
             sql.execute getSentenceFromResource("/create-cache.sql")
         }catch(Exception e){
             log.error "Error creating tables",e
-            throw new AbortOperationException("Invalid connection for nf-pqcache")
+            throw new AbortOperationException("Invalid connection for nf-duckdbcache: $e.message")
         }
     }
 
@@ -148,7 +148,7 @@ class PluginSQL {
             sql.execute getSentenceFromResource("/truncate-cache.sql")
         }catch(Exception e){
             log.error "Error truncating tables",e
-            throw new AbortOperationException("Invalid connection for nf-pqcache")
+            throw new AbortOperationException("Invalid connection for nf-duckdbcache: $e.message")
         }
     }
 }
