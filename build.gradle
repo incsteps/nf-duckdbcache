@@ -76,17 +76,17 @@ java {
     withSourcesJar()
 
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(19)
     }
 }
 
 compileJava {
-    options.release.set(17)
+    options.release.set(11)
 }
 
 tasks.withType(GroovyCompile) {
-    sourceCompatibility = '17'
-    targetCompatibility = '17'
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
 }
 
 tasks.withType(Jar) {
