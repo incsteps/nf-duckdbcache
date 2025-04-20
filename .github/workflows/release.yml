@@ -14,6 +14,8 @@ jobs:
   precheck:
     name: Precheck
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     outputs:
       VERSION: ${{ steps.vars.outputs.VERSION }}
     steps:
@@ -38,11 +40,13 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "GitHub Action"
           git commit -a -m "Releasing version $VERSION"
-          git push origin main
+          git push origin HEAD:${GITHUB_REF}
 
   release:
     needs: [ precheck ]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
