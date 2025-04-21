@@ -11,6 +11,7 @@ Nextflow's DuckDB Cache Plugin enables the storage of task execution metadata in
 
 == Changelog
 
+- 2025-04-21 Version 1.0.0-rc2 released
 - 2025-03-01 Initial version 0.0.1
 
 == Features
@@ -29,10 +30,10 @@ Before using the Cache Plugin, ensure the following requirements are met:
 
 
 .nextflow.config
-[source,groovy]
+[source,groovy,subs="attributes+"]
 ----
 plugins {
-    id "nf-duckdbcache@0.0.1"
+    id "nf-duckdbcache@{gradle-project-version}"
 }
 ----
 
